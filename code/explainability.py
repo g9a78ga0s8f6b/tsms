@@ -582,16 +582,9 @@ def change_feature_importance(ds_name, ds_index):
 
                 f, (ax1, ax2) = plt.subplots(subplots[0], subplots[1], figsize=(fig_width_in, fig_height_in))
 
-                # Negatives red, positives blue
-                negatives = np.where(shaps_before <= 0)[0]
-                positives = np.where(shaps_before > 0)[0]
-                ax1.bar(np.arange(15)[negatives], shaps_before[negatives], color='red', alpha=0.2)
-                ax1.bar(np.arange(15)[positives], shaps_before[positives], color='blue', alpha=0.2)
+                ax1.bar(np.arange(15), np.abs(shaps_before), color='blue', alpha=0.2, label='Shapley values')
 
-                negatives = np.where(shaps_after <= 0)[0]
-                positives = np.where(shaps_after > 0)[0]
-                ax2.bar(np.arange(15)[negatives], shaps_after[negatives], color='red', alpha=0.2, label='Negative Shapley values')
-                ax2.bar(np.arange(15)[positives], shaps_after[positives], color='blue', alpha=0.2, label='Positive Shapley values')
+                ax2.bar(np.arange(15), np.abs(shaps_after), color='blue', alpha=0.2)
                 
                 ax1.plot(x_before, color='black')
                 ax1.plot([14, 15], [x_before[-1], pred_before], color='red', label='Prediction before')
